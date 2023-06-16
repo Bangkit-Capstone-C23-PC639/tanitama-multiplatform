@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -216,45 +217,46 @@ class DetectionResultScreen extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          bottom: -15,
+                          bottom: -57,
                           child: GestureDetector(
-                              onTap: () {
-                                showBarModalBottomSheet(
-                                    context: context,
-                                    duration: const Duration(milliseconds: 100),
-                                    builder: (context) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: largePadding,
-                                          vertical: largePadding * 3,
-                                        ),
-                                        child: Text(
-                                            data.detection.disease
-                                                .recomendation,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge),
-                                      );
-                                    });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: basePadding,
-                                    vertical: smallPadding / 2),
-                                decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                child: Text(
-                                  'Cara penanganan',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontWeight: FontWeight.bold,
+                            onTap: () {
+                              showBarModalBottomSheet(
+                                  context: context,
+                                  duration: const Duration(milliseconds: 100),
+                                  builder: (context) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: largePadding,
+                                        vertical: largePadding * 3,
                                       ),
+                                      child: Text(
+                                          data.detection.disease.recomendation,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge),
+                                    );
+                                  });
+                            },
+                            child: AvatarGlow(
+                              child: Container(
+                                padding: const EdgeInsets.all(smallPadding),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
                                 ),
-                              )),
+                                child: FaIcon(
+                                  FontAwesomeIcons.circleExclamation,
+                                  color: Color(0XFF4f5c47),
+                                ),
+                              ),
+                              endRadius: 60.0,
+                              duration: Duration(milliseconds: 2000),
+                              repeat: true,
+                              showTwoGlows: true,
+                              glowColor: Color(0xFFC9DCBD),
+                              repeatPauseDuration: Duration(milliseconds: 100),
+                            ),
+                          ),
                         )
                       ],
                     ),
