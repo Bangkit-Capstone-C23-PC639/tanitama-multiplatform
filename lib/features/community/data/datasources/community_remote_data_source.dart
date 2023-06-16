@@ -140,10 +140,12 @@ class CommunityRemoteDataSourceImpl implements CommunityRemoteDataSource {
       "Authorization": "Bearer $token"
     });
 
+    logger.d(id);
+    logger.d(response.statusCode);
     logger.d(response.body);
 
-    if (response.statusCode == 200) {
-      return "Berhasil mengahpus post";
+    if (response.statusCode == 204) {
+      return "Berhasil menghapus post";
     } else {
       throw ServerException();
     }

@@ -46,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                   label: 'Password',
                   controller: _passwordController,
                   obsecureText: true,
-                  textInputAction: TextInputAction.next,
+                  textInputAction: TextInputAction.done,
                 ),
                 const SizedBox(
                   height: largePadding,

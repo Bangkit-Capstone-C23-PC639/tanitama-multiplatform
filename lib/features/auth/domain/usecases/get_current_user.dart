@@ -4,8 +4,4 @@ class GetCurrentUser {
   final AuthRepository repository;
 
   GetCurrentUser(this.repository);
-
-  Future<String?> execute() {
-    return repository.getToken();
-  }
 }

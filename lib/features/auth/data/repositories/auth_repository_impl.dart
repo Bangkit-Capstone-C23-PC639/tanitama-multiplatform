@@ -6,6 +6,7 @@ import 'package:tanitama/core/commons/exception.dart';
 import 'package:tanitama/core/commons/failure.dart';
 import 'package:tanitama/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:tanitama/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:tanitama/features/auth/domain/entities/auth.dart';
 import 'package:tanitama/features/auth/domain/entities/user.dart';
 import 'package:tanitama/features/auth/domain/repositories/auth_repository.dart';
 
@@ -19,17 +20,17 @@ class AuthRepositoryImpl implements AuthRepository {
       {required this.remoteDataSource, required this.localDataSource});
 
   @override
-  Future<String?> getToken() async {
+  Future<Auth?> getToken() async {
     final result = await localDataSource.getToken();
-    return result;
+    return result?.toEntity();
   }
 
   @override
-  Future<Either<Failure, String>> login(User user) async {
+  Future<Either<Failure, Auth>> login(User user) async {
     logger.d('from login repository impl');
     try {
       final result = await remoteDataSource.login(user.email, user.password);
-      return Right(result.token);
+      return Right(result.toEntity());
     } on AuthenticationException catch (e) {
       return Left(AuthenticationFailure(e.message));
     } on ServerException {
@@ -40,11 +41,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> register(User user) async {
+  Future<Either<Failure, Auth>> register(User user) async {
     try {
       final result = await remoteDataSource.register(
           user.name!, user.email, user.password, user.passwordConfirmation!);
-      return Right(result.token);
+      return Right(result.toEntity());
     } on AuthenticationException catch (e) {
       return Left(AuthenticationFailure(e.message));
     } on ServerException {
@@ -55,9 +56,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> saveToken(String token) async {
+  Future<Either<Failure, String>> saveToken(Auth auth) async {
     try {
-      final result = await localDataSource.saveToken(token);
+      final result = await localDataSource.saveToken(auth.userId!, auth.token!);
       return Right(result);
     } on ServerException {
       return const Left(ServerFailure('Terjadi kesalahan saat login'));

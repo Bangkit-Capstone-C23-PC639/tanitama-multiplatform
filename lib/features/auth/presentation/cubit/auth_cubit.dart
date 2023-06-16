@@ -41,8 +41,6 @@ class AuthCubit extends Cubit<AuthState> {
 
     final result = await authRegister.execute(user);
 
-    print(result);
-
     result.fold((failure) {
       emit(AuthErrorState(failure.message));
     }, (data) async {
