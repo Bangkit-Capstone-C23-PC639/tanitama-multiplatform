@@ -9,6 +9,7 @@ import 'package:tanitama/features/auth/presentation/login_screen.dart';
 import 'package:tanitama/features/community/presentation/cubit/community_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/create_comment_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/create_post_cubit.dart';
+import 'package:tanitama/features/community/presentation/cubit/delete_comment_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/delete_post_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/post_detail_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/post_image_picker_cubit.dart';
@@ -63,6 +64,8 @@ class MyApp extends StatelessWidget {
               create: (_) => di.locator<CreatePostCubit>()),
           BlocProvider<DeletePostCubit>(
               create: (_) => di.locator<DeletePostCubit>()),
+          BlocProvider<DeleteCommentCubit>(
+              create: (_) => di.locator<DeleteCommentCubit>()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

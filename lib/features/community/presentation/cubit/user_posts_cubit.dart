@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:tanitama/features/auth/domain/usecases/get_token.dart';
 import 'package:tanitama/features/community/domain/entities/post_entity.dart';
 import 'package:tanitama/features/community/domain/usecases/get_posts_by_user.dart';
 

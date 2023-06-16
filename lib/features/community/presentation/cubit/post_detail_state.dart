@@ -24,9 +24,10 @@ class PostDetailError extends PostDetailState {
 
 class PostDetailSuccess extends PostDetailState {
   final PostEntity post;
+  final String userId;
 
-  const PostDetailSuccess(this.post);
+  const PostDetailSuccess(this.post, this.userId);
 
   @override
-  List<Object> get props => [post];
+  List<Object> get props => [post, userId];
 }

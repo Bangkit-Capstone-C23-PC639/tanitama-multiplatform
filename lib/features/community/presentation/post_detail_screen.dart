@@ -179,6 +179,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           itemCount: post.comments!.length,
                           itemBuilder: (context, index) => CommentItem(
                             comment: post.comments![index],
+                            userId: state.userId,
                           ),
                         )
                       : const SizedBox()

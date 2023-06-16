@@ -15,6 +15,7 @@ abstract class CommunityRemoteDataSource {
   Future<List<PostModel>> getPostsByUser();
   Future<PostModel> getPostById(int id);
   Future<String> createComment(int id, String content);
+  Future<String> deleteComment(int id);
   Future<String> createPost(String title, String content, File image);
   Future<String> deletePost(int id);
 }
@@ -140,12 +141,30 @@ class CommunityRemoteDataSourceImpl implements CommunityRemoteDataSource {
       "Authorization": "Bearer $token"
     });
 
+    if (response.statusCode == 204) {
+      return "Berhasil menghapus post";
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<String> deleteComment(int id) async {
+    final String? token = await storage.read(key: 'access-token');
+
+    final response =
+        await client.delete(Uri.parse('$baseUrlApi/comment/$id'), headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer $token"
+    });
+
     logger.d(id);
     logger.d(response.statusCode);
     logger.d(response.body);
 
     if (response.statusCode == 204) {
-      return "Berhasil menghapus post";
+      return "Berhasil menghapus komentar";
     } else {
       throw ServerException();
     }

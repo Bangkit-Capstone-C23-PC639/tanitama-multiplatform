@@ -12,4 +12,5 @@ abstract class CommunityRepository {
   Future<Either<Failure, String>> createPost(
       String title, String content, File image);
   Future<Either<Failure, String>> deletePost(int id);
+  Future<Either<Failure, String>> deleteComment(int id);
 }

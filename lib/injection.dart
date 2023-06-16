@@ -16,6 +16,7 @@ import 'package:tanitama/features/community/data/repositories/community_reposito
 import 'package:tanitama/features/community/domain/repositories/community_repository.dart';
 import 'package:tanitama/features/community/domain/usecases/create_comment.dart';
 import 'package:tanitama/features/community/domain/usecases/create_post.dart';
+import 'package:tanitama/features/community/domain/usecases/delete_comment.dart';
 import 'package:tanitama/features/community/domain/usecases/delete_post.dart';
 import 'package:tanitama/features/community/domain/usecases/get_all_posts.dart';
 import 'package:tanitama/features/community/domain/usecases/get_post_by_id.dart';
@@ -23,6 +24,7 @@ import 'package:tanitama/features/community/domain/usecases/get_posts_by_user.da
 import 'package:tanitama/features/community/presentation/cubit/community_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/create_comment_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/create_post_cubit.dart';
+import 'package:tanitama/features/community/presentation/cubit/delete_comment_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/delete_post_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/post_detail_cubit.dart';
 import 'package:tanitama/features/community/presentation/cubit/post_image_picker_cubit.dart';
@@ -60,9 +62,8 @@ void init() {
   locator.registerFactory(() => CommunityCubit(
         getAllPosts: locator(),
       ));
-  locator.registerFactory(() => PostDetailCubit(
-        getPostById: locator(),
-      ));
+  locator.registerFactory(
+      () => PostDetailCubit(getPostById: locator(), getToken: locator()));
   locator.registerFactory(() => CreateCommentCubit(
         createComment: locator(),
       ));
@@ -74,6 +75,9 @@ void init() {
       ));
   locator.registerFactory(() => DeletePostCubit(
         deletePost: locator(),
+      ));
+  locator.registerFactory(() => DeleteCommentCubit(
+        deleteComment: locator(),
       ));
   locator.registerFactory(() => ImagePickerCubit());
   locator.registerFactory(() => PostImagePickerCubit());
@@ -92,6 +96,7 @@ void init() {
   locator.registerLazySingleton(() => CreatePost(locator()));
   locator.registerLazySingleton(() => GetPostsByUser(locator()));
   locator.registerLazySingleton(() => DeletePost(locator()));
+  locator.registerLazySingleton(() => DeleteComment(locator()));
 
   locator.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(

@@ -85,4 +85,16 @@ class CommunityRepositoryImpl implements CommunityRepository {
       return const Left(ConnectionFailure('Gagal terhubung ke internet'));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> deleteComment(int id) async {
+    try {
+      final result = await remoteDataSource.deleteComment(id);
+      return Right(result);
+    } on ServerException {
+      return const Left(ServerFailure('Terjadi kesalahan pada server'));
+    } on SocketException {
+      return const Left(ConnectionFailure('Gagal terhubung ke internet'));
+    }
+  }
 }
